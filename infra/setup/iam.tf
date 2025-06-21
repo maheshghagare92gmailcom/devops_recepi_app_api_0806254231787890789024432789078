@@ -367,8 +367,8 @@ resource "aws_iam_user_policy_attachment" "service_linked_roles" {
 
 data "aws_iam_policy_document" "service_linked_roles_rds" {
   statement {
-    effect = "Allow"
-    actions = ["iam:CreateServiceLinkedRole"]
+    effect    = "Allow"
+    actions   = ["iam:CreateServiceLinkedRole"]
     resources = ["*"]
     condition {
       test     = "StringEquals"
