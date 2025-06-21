@@ -328,3 +328,37 @@ resource "aws_iam_user_policy_attachment" "elb" {
   user       = aws_iam_user.cd.name
   policy_arn = aws_iam_policy.elb.arn
 }
+
+
+##############################
+# Policy for Service-Linked Roles creation #
+##############################
+
+data "aws_iam_policy_document" "service_linked_roles" {
+  statement {
+    effect = "Allow"
+    actions = [
+      "iam:CreateServiceLinkedRole"
+    ]
+    resources = ["*"]
+    condition {
+      test     = "StringEquals"
+      variable = "iam:AWSServiceName"
+      values = [
+        "elasticloadbalancing.amazonaws.com",
+        "rds.amazonaws.com"
+      ]
+    }
+  }
+}
+
+resource "aws_iam_policy" "service_linked_roles" {
+  name        = "${aws_iam_user.cd.name}-service-linked-roles"
+  description = "Allow creation of service-linked roles for ELB and RDS."
+  policy      = data.aws_iam_policy_document.service_linked_roles.json
+}
+
+resource "aws_iam_user_policy_attachment" "service_linked_roles" {
+  user       = aws_iam_user.cd.name
+  policy_arn = aws_iam_policy.service_linked_roles.arn
+}
