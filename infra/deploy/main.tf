@@ -38,10 +38,3 @@ resource "aws_iam_service_linked_role" "ecs" {
   aws_service_name = "ecs.amazonaws.com"
 }
 
-resource "aws_iam_service_linked_role" "rds" {
-  aws_service_name = "rds.amazonaws.com"
-}
-
-resource "aws_iam_service_linked_role" "elb" {
-  aws_service_name = "elasticloadbalancing.amazonaws.com"
-}

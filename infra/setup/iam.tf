@@ -347,7 +347,8 @@ data "aws_iam_policy_document" "service_linked_roles" {
       variable = "iam:AWSServiceName"
       values = [
         "elasticloadbalancing.amazonaws.com",
-        "rds.amazonaws.com"
+        "rds.amazonaws.com",
+        "ecs.amazonaws.com"
       ]
     }
   }
@@ -365,26 +366,3 @@ resource "aws_iam_user_policy_attachment" "service_linked_roles" {
 }
 
 
-data "aws_iam_policy_document" "service_linked_roles_rds" {
-  statement {
-    effect    = "Allow"
-    actions   = ["iam:CreateServiceLinkedRole"]
-    resources = ["*"]
-    condition {
-      test     = "StringEquals"
-      variable = "iam:AWSServiceName"
-      values   = ["rds.amazonaws.com"]
-    }
-  }
-}
-
-resource "aws_iam_policy" "service_linked_roles_rds" {
-  name        = "${aws_iam_user.cd.name}-service-linked-roles-rds"
-  description = "Allow creation of service-linked role for RDS."
-  policy      = data.aws_iam_policy_document.service_linked_roles_rds.json
-}
-
-resource "aws_iam_user_policy_attachment" "service_linked_roles_rds" {
-  user       = aws_iam_user.cd.name
-  policy_arn = aws_iam_policy.service_linked_roles_rds.arn
-}
