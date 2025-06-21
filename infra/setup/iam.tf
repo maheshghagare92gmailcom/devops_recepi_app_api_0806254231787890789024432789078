@@ -367,6 +367,7 @@ resource "aws_iam_user_policy_attachment" "service_linked_roles" {
 }
 
 
+
 #########################
 # Policy for EFS access #
 #########################
