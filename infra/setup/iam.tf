@@ -20,7 +20,7 @@ data "aws_iam_policy_document" "infra_combined" {
     resources = ["*"]
   }
 
-   statement {
+  statement {
     effect = "Allow"
     actions = [
       "ec2:DescribeVpcs",
@@ -74,7 +74,7 @@ data "aws_iam_policy_document" "infra_combined" {
     resources = ["*"]
   }
 
-   statement {
+  statement {
     effect = "Allow"
     actions = [
       "elasticfilesystem:DescribeFileSystems",
