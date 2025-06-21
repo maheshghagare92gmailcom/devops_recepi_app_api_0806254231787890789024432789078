@@ -339,7 +339,8 @@ data "aws_iam_policy_document" "service_linked_roles" {
   statement {
     effect = "Allow"
     actions = [
-      "iam:CreateServiceLinkedRole"
+      "iam:CreateServiceLinkedRole",
+      "iam:DeleteServiceLinkedRole"
     ]
     resources = ["*"]
     condition {
