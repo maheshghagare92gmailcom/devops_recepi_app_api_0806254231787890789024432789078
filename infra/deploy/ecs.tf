@@ -135,7 +135,7 @@ resource "aws_ecs_task_definition" "api" {
           {
             readOnly      = true
             containerPath = "/vol/media"
-            sourceVolume  = "efs-media"  
+            sourceVolume  = "efs-media"
           }
         ]
         logConfiguration = {
@@ -166,7 +166,7 @@ resource "aws_ecs_task_definition" "api" {
       }
     }
   }
-  
+
   runtime_platform {
     operating_system_family = "LINUX"
     cpu_architecture        = "X86_64"
@@ -237,7 +237,7 @@ resource "aws_ecs_service" "api" {
     security_groups = [aws_security_group.ecs_service.id]
   }
 
-   load_balancer {
+  load_balancer {
     target_group_arn = aws_lb_target_group.api.arn
     container_name   = "proxy"
     container_port   = 80007890
